@@ -4,7 +4,7 @@ import LandingPage from './components/LandingPage'; // Import your Hero componen
 function App() {
   return (
     <div className="App">
-      <LandingPage />  {/* Render the Hero component */}
+      <LandingPage />
     </div>
   );
 }
