@@ -1,1 +1,1 @@
-# pantherplates
+# Panther Plates
