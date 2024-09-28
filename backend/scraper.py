@@ -59,8 +59,8 @@ def breakfast():
                 
                 for img in img_tags:
                     # Check both the alt and src. Climate needs the src because it doesn't have an alt
-                    alt = img.get_attribute('alt')
-                    src = img.get_attribute('src')
+                    alt = img.get_attribute('alt') or ""
+                    src = img.get_attribute('src') or ""
                     if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
                         is_vegan = True
                     elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
@@ -216,16 +216,16 @@ def lunch():
 
                 img_tags = item_cell.find_elements(By.TAG_NAME, 'img')
                 
-                # for img in img_tags:
-                #     # Check both the alt and src. Climate needs the src because it doesn't have an alt
-                #     alt = img.get_attribute('alt')
-                #     src = img.get_attribute('src')
-                #     if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
-                #         is_vegan = True
-                #     elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
-                #         is_vegetarian = True
-                #     elif "climate" in src:
-                #         is_climate = True
+                for img in img_tags:
+                    # Check both the alt and src. Climate needs the src because it doesn't have an alt
+                    alt = img.get_attribute('alt') or ""
+                    src = img.get_attribute('src') or ""
+                    if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
+                        is_vegan = True
+                    elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
+                        is_vegetarian = True
+                    elif "climate" in src:
+                        is_climate = True
 
                 # Extract portion
                 portion_cell = td_cells[1]
@@ -377,8 +377,8 @@ def dinner():
                 
                 for img in img_tags:
                     # Check both the alt and src. Climate needs the src because it doesn't have an alt
-                    alt = img.get_attribute('alt')
-                    src = img.get_attribute('src')
+                    alt = img.get_attribute('alt') or ""
+                    src = img.get_attribute('src') or ""
                     if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
                         is_vegan = True
                     elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
@@ -475,4 +475,4 @@ def dinner():
         driver.quit()
 
 
-lunch()
+dinner()
