@@ -131,25 +131,26 @@ def breakfast():
                 continue
 
             food_items.append({
-                'Item': item_name,
-                'Meal': "Breakfast",
-                'Portion': portion,
-                'Calories': calories,
-                'Nutritional Info': nutritional_info,
-                'Vegan': is_vegan,
-                'Vegetarian': is_vegetarian,
-                'Climate Friendly': is_climate
+                "name": item_name,
+                "meal": "breakfast",
+                "portion": portion,
+                "calories": calories,
+                "nutritional_info": nutritional_info,
+                "is_vegan": is_vegan,
+                "is_vegetarian": is_vegetarian,
+                "is_climate": is_climate
             })
 
-        if food_items:
-            for item in food_items:
-                print(f"Item: {item['Item']}, Meal: {item['Meal']}")
-                print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
-                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
-                print("")
-        else:
-            print("No meals found.")
+        # if food_items:
+        #     for item in food_items:
+        #         print(f"Item: {item['name']}, Meal: {item['meal']}")
+        #         print(f"Portion: {item['portion']}, Calories: {item['calories']}, Nutritional Info: {item['nutritional_info']}")
+        #         print(f"Vegan?: {item['vegan']}, Vegetarian?: {item['vegetarian']}, Climate?: {item['climate_friendly']}")
+        #         print("")
+        # else:
+        #     print("No meals found.")
 
+        # print(food_items[0])
         return food_items
 
     finally:
@@ -290,24 +291,24 @@ def lunch():
                 continue
 
             food_items.append({
-                'Item': item_name,
-                'Meal': "Lunch",
-                'Portion': portion,
-                'Calories': calories,
-                'Nutritional Info': nutritional_info,
-                'Vegan': is_vegan,
-                'Vegetarian': is_vegetarian,
-                'Climate Friendly': is_climate
+                "name": item_name,
+                "meal": "lunch",
+                "portion": portion,
+                "calories": calories,
+                "nutritional_info": nutritional_info,
+                "is_vegan": is_vegan,
+                "is_vegetarian": is_vegetarian,
+                "is_climate": is_climate
             })
 
-        if food_items:
-            for item in food_items:
-                print(f"Item: {item['Item']}")
-                print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
-                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
-                print("")
-        else:
-            print("No meals found.")
+        # if food_items:
+        #     for item in food_items:
+        #         print(f"Item: {item['Item']}")
+        #         print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
+        #         print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
+        #         print("")
+        # else:
+        #     print("No meals found.")
 
         return food_items
 
@@ -318,7 +319,7 @@ def lunch():
 
 def dinner():
     """
-    Scrapes the dinner menu.
+    Scrapes the lunch menu.
 
     Returns:
         list: A list of dictionaries containing meal information.
@@ -345,12 +346,13 @@ def dinner():
             EC.presence_of_element_located((By.CSS_SELECTOR, "ul[role='tablist']"))
         )
 
+        # Change to Lunch
         tab_link = driver.find_element(By.LINK_TEXT, 'Dinner')
         tab_link.click()
 
+        # We need to sleep here, otherwise the data won't fully load and everything will be empty
         time.sleep(10)
 
-        # Find all rows with role 'row'
         rows = driver.find_elements(By.CSS_SELECTOR, 'tr[role="row"]')
 
         food_items = []
@@ -406,8 +408,7 @@ def dinner():
                     WebDriverWait(driver, 20).until(
                         EC.visibility_of_element_located((By.CLASS_NAME, "modal-body"))
                     )
-                    # Wait for the modal to load
-                    time.sleep(1)
+                    time.sleep(1)  # Optional: Wait for content to load
 
                     # Get the modal content
                     modal_content_element = driver.find_element(By.CLASS_NAME, "modal-body")
@@ -450,29 +451,26 @@ def dinner():
                 continue
 
             food_items.append({
-                'Item': item_name,
-                'Meal': "Dinner",
-                'Portion': portion,
-                'Calories': calories,
-                'Nutritional Info': nutritional_info,
-                'Vegan': is_vegan,
-                'Vegetarian': is_vegetarian,
-                'Climate Friendly': is_climate
+                "name": item_name,
+                "meal": "dinner",
+                "portion": portion,
+                "calories": calories,
+                "nutritional_info": nutritional_info,
+                "is_vegan": is_vegan,
+                "is_vegetarian": is_vegetarian,
+                "is_climate": is_climate
             })
 
-        if food_items:
-            for item in food_items:
-                print(f"Item: {item['Item']}")
-                print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
-                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
-                print("")
-        else:
-            print("No meals found.")
+        # if food_items:
+        #     for item in food_items:
+        #         print(f"Item: {item['Item']}")
+        #         print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
+        #         print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
+        #         print("")
+        # else:
+        #     print("No meals found.")
 
         return food_items
 
     finally:
         driver.quit()
-
-
-dinner()
