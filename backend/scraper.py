@@ -38,7 +38,7 @@ def breakfast():
         food_items = []
 
         for row in rows:
-            item_name, portion, calories, nutritional_info = None, None, None, {}
+            item_name, portion, calories, nutritional_info, is_vegan, is_vegetarian, is_climate = None, None, None, {}, False, False, False
 
             td_cells = row.find_elements(By.TAG_NAME, 'td')
 
@@ -54,6 +54,20 @@ def breakfast():
                     item_name = item_name_tag.text.strip()
                 except:
                     item_name = item_cell.text.strip()
+
+                img_tags = item_cell.find_elements(By.TAG_NAME, 'img')
+                
+                for img in img_tags:
+                    # Check both the alt and src. Climate needs the src because it doesn't have an alt
+                    alt = img.get_attribute('alt')
+                    src = img.get_attribute('src')
+                    if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
+                        is_vegan = True
+                    elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
+                        is_vegetarian = True
+                    elif "climate" in src:
+                        is_climate = True
+
 
                 # Extract portion
                 portion_cell = td_cells[1]
@@ -121,13 +135,17 @@ def breakfast():
                 'Meal': "Breakfast",
                 'Portion': portion,
                 'Calories': calories,
-                'Nutritional Info': nutritional_info
+                'Nutritional Info': nutritional_info,
+                'Vegan': is_vegan,
+                'Vegetarian': is_vegetarian,
+                'Climate Friendly': is_climate
             })
 
         if food_items:
             for item in food_items:
                 print(f"Item: {item['Item']}, Meal: {item['Meal']}")
                 print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
+                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
                 print("")
         else:
             print("No meals found.")
@@ -179,7 +197,7 @@ def lunch():
         food_items = []
 
         for row in rows:
-            item_name, portion, calories, nutritional_info = None, None, None, {}
+            item_name, portion, calories, nutritional_info, is_vegan, is_vegetarian, is_climate = None, None, None, {}, False, False, False
 
             td_cells = row.find_elements(By.TAG_NAME, 'td')
 
@@ -195,6 +213,19 @@ def lunch():
                     item_name = item_name_tag.text.strip()
                 except:
                     item_name = item_cell.text.strip()
+
+                img_tags = item_cell.find_elements(By.TAG_NAME, 'img')
+                
+                # for img in img_tags:
+                #     # Check both the alt and src. Climate needs the src because it doesn't have an alt
+                #     alt = img.get_attribute('alt')
+                #     src = img.get_attribute('src')
+                #     if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
+                #         is_vegan = True
+                #     elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
+                #         is_vegetarian = True
+                #     elif "climate" in src:
+                #         is_climate = True
 
                 # Extract portion
                 portion_cell = td_cells[1]
@@ -263,18 +294,20 @@ def lunch():
                 'Meal': "Lunch",
                 'Portion': portion,
                 'Calories': calories,
-                'Nutritional Info': nutritional_info
+                'Nutritional Info': nutritional_info,
+                'Vegan': is_vegan,
+                'Vegetarian': is_vegetarian,
+                'Climate Friendly': is_climate
             })
 
         if food_items:
             for item in food_items:
                 print(f"Item: {item['Item']}")
                 print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
+                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
                 print("")
         else:
             print("No meals found.")
-
-        print(len(item))
 
         return food_items
 
@@ -323,7 +356,7 @@ def dinner():
         food_items = []
 
         for row in rows:
-            item_name, portion, calories, nutritional_info = None, None, None, {}
+            item_name, portion, calories, nutritional_info, is_vegan, is_vegetarian, is_climate = None, None, None, {}, False, False, False
 
             td_cells = row.find_elements(By.TAG_NAME, 'td')
 
@@ -339,6 +372,19 @@ def dinner():
                     item_name = item_name_tag.text.strip()
                 except:
                     item_name = item_cell.text.strip()
+
+                img_tags = item_cell.find_elements(By.TAG_NAME, 'img')
+                
+                for img in img_tags:
+                    # Check both the alt and src. Climate needs the src because it doesn't have an alt
+                    alt = img.get_attribute('alt')
+                    src = img.get_attribute('src')
+                    if "Contains no animal-based ingredients or by-products." in alt or "vegan" in src:
+                        is_vegan = True
+                    elif "Contains no meat, poultry, fish or seafood but may contain eggs or dairy." in alt or "vegetarian" in src:
+                        is_vegetarian = True
+                    elif "climate" in src:
+                        is_climate = True
 
                 # Extract portion
                 portion_cell = td_cells[1]
@@ -408,13 +454,17 @@ def dinner():
                 'Meal': "Dinner",
                 'Portion': portion,
                 'Calories': calories,
-                'Nutritional Info': nutritional_info
+                'Nutritional Info': nutritional_info,
+                'Vegan': is_vegan,
+                'Vegetarian': is_vegetarian,
+                'Climate Friendly': is_climate
             })
 
         if food_items:
             for item in food_items:
                 print(f"Item: {item['Item']}")
                 print(f"Portion: {item['Portion']}, Calories: {item['Calories']}, Nutritional Info: {item['Nutritional Info']}")
+                print(f"Vegan?: {item['Vegan']}, Vegetarian?: {item['Vegetarian']}, Climate?: {item['Climate Friendly']}")
                 print("")
         else:
             print("No meals found.")
@@ -425,4 +475,4 @@ def dinner():
         driver.quit()
 
 
-breakfast()
+lunch()
