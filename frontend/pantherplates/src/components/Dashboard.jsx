@@ -11,7 +11,7 @@ const Dashboard = () => {
     <div className="flex flex-col md:flex-row h-screen">
       {/* Main Content */}
       <div className="flex-1 bg-white p-8">
-        <h2 className="text-2xl font-bold mb-6">FIU Dining Dashboard</h2>
+        <h2 className="text-4xl font-bold mb-6 text-left">FIU Dining Dashboard</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-card p-4 rounded-lg shadow-md">
