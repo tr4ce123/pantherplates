@@ -18,6 +18,30 @@ const Dashboard = ({ userName, setIsLoggedIn }) => {
         try {
             const response = await axios.get('http://127.0.0.1:5000/users/meals/recent', { params: { username: userName } });
             if (response.status === 200) {
+                let data = response.data
+                data.health_conditions = Array.isArray(data.health_conditions)
+                ? data.health_conditions
+                : data.health_conditions
+                    ? data.health_conditions.split(',').map(s => s.trim())
+                    : [];
+
+            data.allergens = Array.isArray(data.allergens)
+                ? data.allergens
+                : data.allergens
+                    ? data.allergens.split(',').map(s => s.trim())
+                    : [];
+
+            data.dietary_restrictions = Array.isArray(data.dietary_restrictions)
+                ? data.dietary_restrictions
+                : data.dietary_restrictions
+                    ? data.dietary_restrictions.split(',').map(s => s.trim())
+                    : [];
+
+            data.general_preferences = Array.isArray(data.general_preferences)
+                ? data.general_preferences
+                : data.general_preferences
+                    ? data.general_preferences.split(',').map(s => s.trim())
+                    : [];
                 setRecentMeal(response.data);
                 console.log('Successfully fetched recent meal:', response.data);
             }

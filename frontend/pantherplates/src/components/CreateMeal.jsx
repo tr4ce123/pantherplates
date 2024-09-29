@@ -60,8 +60,8 @@ const CreateMeal = ({userName}) => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#081E3F] to-[#B6862C]">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl bg-opacity-50">
         <h1 className="text-3xl font-semibold text-gray-800 text-center mb-8">
           Create Your Meal Plan
         </h1>
