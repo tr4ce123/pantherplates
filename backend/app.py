@@ -1,3 +1,4 @@
+from bson import ObjectId
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
@@ -224,6 +225,13 @@ def save_meals():
     
     meals_collection.insert_one(saved_meal)
     return jsonify({'message': 'Meal added successfully!'}), 200
+
+@app.route('/meals/delete', methods=['DELETE'])
+def delete_meal():
+    meal_id = request.args.get('meal_id')
+
+    meals_collection.delete_one({'_id': ObjectId(meal_id)})
+    return jsonify({'message': 'Meal deleted successfully!'}), 200
 
 ## USER ROUTES
 @app.route('/signup', methods=['POST'])

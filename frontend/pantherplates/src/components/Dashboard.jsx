@@ -61,16 +61,40 @@ const Dashboard = ({ userName, setIsLoggedIn }) => {
 
     return (
         <div className="flex flex-col md:flex-row h-screen bg-gradient-to-l from-[#081E3F] to-[#B6862C]">
-            {/* Left Side - Recent Meals */}
-            <div className="flex-1 p-8 overflow-y-auto">
-                <div className="flex items-center mb-6">
+            <div className="w-full md:w-1/5 bg-[#081E3F] bg-opacity-80 p-6 shadow-lg p-4">
+            <div className="flex items-center mb-6">
                     {/* Logo */}
                     <img src={logo} alt="Logo" className="h-20 w-20 mr-4" />
                     {/* Dashboard Title */}
-                    <h2 className="text-4xl text-[#081E3F] font-bold">
-                        {userName}'s Dashboard
+                    <h2 className="text-4xl text-[#B6862C] font-bold">
+                        Dashboard
                     </h2>
                 </div>
+                <h2 className="text-lg font-semibold mb-4 text-gray-100">Actions</h2>
+                
+                {/* Create Meal Button */}
+                <div className="mb-4">
+                    <button
+                        onClick={() => navigate('/dashboard/create')}
+                        className="bg-[#B6862C] text-white rounded-full p-2 w-full hover:bg-[#A76B1F] flex items-center justify-center"
+                    >
+                        <FaPlus className="mr-2" /> Create Meal
+                    </button>
+                </div>
+                
+                {/* View Your Meals Button */}
+                <div>
+                    <button
+                        onClick={() => navigate('/dashboard/meals')}
+                        className="bg-blue-500 text-white rounded-full p-2 w-full hover:bg-blue-600 flex items-center justify-center"
+                    >
+                        <FaList className="mr-2" /> View Your Meals
+                    </button>
+                </div>
+            </div>
+            {/* Left Side - Recent Meals */}
+            <div className="flex-1 p-8 overflow-y-auto">
+
                 <div className="bg-[#081E3F] bg-opacity-90 p-6 rounded-lg shadow-lg">
                     {loading ? (
                         <p className="text-gray-500">Loading...</p>
@@ -198,29 +222,7 @@ const Dashboard = ({ userName, setIsLoggedIn }) => {
             </div>
 
             {/* Right Side - Actions */}
-            <div className="w-full md:w-1/5 bg-[#081E3F] shadow-lg p-4">
-                <h2 className="text-lg font-semibold mb-4 text-gray-100">Actions</h2>
-                
-                {/* Create Meal Button */}
-                <div className="mb-4">
-                    <button
-                        onClick={() => navigate('/dashboard/create')}
-                        className="bg-[#B6862C] text-white rounded-full p-2 w-full hover:bg-[#A76B1F] flex items-center justify-center"
-                    >
-                        <FaPlus className="mr-2" /> Create Meal
-                    </button>
-                </div>
-                
-                {/* View Your Meals Button */}
-                <div>
-                    <button
-                        onClick={() => navigate('/dashboard/meals')}
-                        className="bg-blue-500 text-white rounded-full p-2 w-full hover:bg-blue-600 flex items-center justify-center"
-                    >
-                        <FaList className="mr-2" /> View Your Meals
-                    </button>
-                </div>
-            </div>
+
         </div>
     );
 };
