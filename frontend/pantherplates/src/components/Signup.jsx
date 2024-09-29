@@ -27,14 +27,14 @@ const Signup = ({setIsLoggedIn, setUserName}) => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex justify-center text-gray-700 text-left items-center min-h-screen bg-gradient-to-r from-[#081E3F] to-[#B6862C]">
             <div className="bg-white shadow-md rounded-md w-3/4 flex">
                 {/* Left side (Sign In form) */}
                 <div className="w-1/2 p-10">
                     <h2 className="text-3xl font-bold mb-8">Sign Up</h2>
 
                     <div className="mb-6">
-                        <label className="block text-lg font-semibold mb-2">Username</label>
+                        <label className="block text-left font-semibold mb-2">Username</label>
                         <input
                             type="text"
                             value={username}
@@ -45,7 +45,7 @@ const Signup = ({setIsLoggedIn, setUserName}) => {
                     </div>
 
                     <div className="mb-6">
-                        <label className="block text-lg font-semibold mb-2">Password</label>
+                        <label className="block text-left font-semibold mb-2">Password</label>
                         <input
                             type="password"
                             value={password}
@@ -69,7 +69,7 @@ const Signup = ({setIsLoggedIn, setUserName}) => {
 
                     <button
                         onClick={handleSignUp}
-                        className="w-full bg-[#081E3F] text-white py-3 rounded-md font-semibold hover:bg-blue-950 transition"
+                        className="w-full bg-[#081E3F] text-white py-3 rounded-full font-semibold hover:bg-blue-950 transition"
                     >
                         Sign Up
                     </button>
@@ -84,7 +84,7 @@ const Signup = ({setIsLoggedIn, setUserName}) => {
                     
                     <button
                         onClick={() => navigate('/login')}
-                        className="bg-[#B6862C] text-white py-3 px-6 rounded-md font-semibold hover:bg-[#a67723] transition"
+                        className="bg-[#B6862C] text-white py-3 px-6 rounded-full font-semibold hover:bg-[#a67723] transition"
                     >
                         Sign In
                     </button>

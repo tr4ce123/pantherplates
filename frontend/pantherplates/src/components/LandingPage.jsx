@@ -15,7 +15,7 @@ function LandingPage() {
     <div className="App">
       <div className="text-white">
         {/* Flex container for aligning the text and logo horizontally */}
-        <div className="bg-gradient-to-r from-[#081E3F] to-[#B6862C] px-8 py-4 flex items-center justify-between w-screen h-screen">
+        <div className="bg-gradient-to-r from-[#081E3F] to-[#B6862C] px-9 py-4 flex items-center justify-between w-screen h-screen">
           {/* Full-screen width and height with justified content */}
           
           {/* Left side: Text content, centered horizontally and vertically */}

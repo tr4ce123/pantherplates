@@ -29,44 +29,44 @@ const Login = ({setIsLoggedIn, setUserName}) => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white shadow-md rounded-md w-3/4 flex">
+        <div className="flex justify-center text-gray-700 items-center min-h-screen bg-gradient-to-r from-[#081E3F] to-[#B6862C]">
+            <div className="bg-white border-2 border-[#081E3F] rounded-md w-3/4 flex">
                 {/* Left side (Sign In form) */}
                 <div className="w-1/2 p-10">
-                    <h2 className="text-3xl font-bold mb-8">Sign in</h2>
+                    <h2 className="text-3xl font-bold mb-8  text-left rounded-md">Sign in</h2>
 
                     <div className="mb-6">
-                        <label className="block text-lg font-semibold mb-2">Username</label>
+                        <label className="block text-left font-semibold mb-2">Username</label>
                         <input
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#081E3F]"
                             placeholder="Username"
                         />
                     </div>
 
                     <div className="mb-6">
-                        <label className="block text-lg font-semibold mb-2">Password</label>
+                        <label className="block text-left font-semibold mb-2">Password</label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#081E3F]"
                             placeholder="Password"
                         />
                     </div>
 
                     <button
                         onClick={handleLogin}
-                        className="w-full bg-[#081E3F] text-white py-3 rounded-md font-semibold hover:bg-blue-950 transition"
+                        className="w-full bg-[#081E3F] text-white py-3 rounded-full font-semibold hover:bg-blue-950 transition"
                     >
                         Sign In
                     </button>
                 </div>
 
                 {/* Right side (Welcome section) */}
-                <div className="w-1/2 bg-[#081E3F] text-white flex flex-col justify-center items-center p-10">
+                <div className="w-1/2 bg-[#081E3F] rounded-r text-white flex flex-col justify-center items-center p-10">
                     <h1 className="text-4xl font-bold mb-4">Welcome,</h1>
                     <h1 className="text-4xl font-bold mb-8">Login Here</h1>
 
@@ -74,7 +74,7 @@ const Login = ({setIsLoggedIn, setUserName}) => {
                     
                     <button
                         onClick={() => navigate('/signup')}
-                        className="bg-[#B6862C] text-white py-3 px-6 rounded-md font-semibold hover:bg-[#a67723] transition"
+                        className="bg-[#B6862C] text-white py-3 px-6 rounded-full font-semibold hover:bg-[#a67723] transition"
                     >
                         Sign Up
                     </button>
