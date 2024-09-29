@@ -5,11 +5,14 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from scraper import breakfast, lunch, dinner
 from chat_service import generate_response
+import certifi
+ca_path = certifi.where()
+
 
 MONGO_URI = os.getenv('MONGO_URI')
 load_dotenv()
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGO_URI, tlsCAFile=ca_path)
 db = client.get_database("pantherplates")
 food_items = db.get_collection("food_items")
 users_collection = db.get_collection("users")
