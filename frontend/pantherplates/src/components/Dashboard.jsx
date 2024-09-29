@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Dashboard = () => {
-
+const Dashboard = ({userName, setIsLoggedIn}) => {
     const navigate = useNavigate();
 
 
@@ -11,26 +10,26 @@ const Dashboard = () => {
     <div className="flex flex-col md:flex-row h-screen">
       {/* Main Content */}
       <div className="flex-1 bg-white p-8">
-        <h2 className="text-2xl font-bold mb-6">FIU Dining Dashboard</h2>
+        <h2 className="text-4xl font-bold mb-6 text-left">Welcome to the FIU Dining Dashboard, {userName}!</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-card p-4 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-2">View Meals</h3>
-                <p className="text-sm text-muted-foreground">Check out what's cooking today!</p>
+                <h3 className="text-lg font-semibold mb-2">View Your Meals</h3>
+                <p className="text-sm text-muted-foreground">Track your saved meals.</p>
                 <button
                 onClick={() => navigate('/dashboard/meals')}
                 className="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">
-                View Menu
+                View Meals
                 </button>
             </div>
 
           <div className="bg-card p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold mb-2">Create Meal</h3>
-            <p className="text-sm text-muted-foreground">Track your recent orders here.</p>
+            <p className="text-sm text-muted-foreground">Create any new meal you like!</p>
             <button
             onClick={() => navigate('/dashboard/create')}
             className="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">
-              View Orders
+              Create meal
             </button>
           </div>
         </div>

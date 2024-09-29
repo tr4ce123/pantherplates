@@ -242,8 +242,7 @@ def login():
 
 @app.route('/users/meals', methods=['GET'])
 def get_meals_for_user():
-    data = request.json
-    username = data['username']
+    username = request.args.get('username')
 
     user_meals = meals_collection.find({'username': username})
     meals = [serialize_meal(meal) for meal in user_meals]
