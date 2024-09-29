@@ -159,7 +159,24 @@ def generate_meal():
 
     meal_plan = generate_response(prompt)
 
-    return jsonify({'meal_plan': meal_plan}), 200
+    def title_case_items(items):
+        return [item.title() for item in items]
+
+    processed_health_conditions = title_case_items(health_conditions)
+    processed_dietary_restrictions = title_case_items(dietary_restrictions)
+    processed_general_preferences = title_case_items(general_preferences)
+    processed_allergens = title_case_items(allergens)
+
+    response = {
+        'meal_plan': meal_plan,
+        'health_conditions': processed_health_conditions,
+        'dietary_restrictions': processed_dietary_restrictions,
+        'general_preferences': processed_general_preferences,
+        'allergens': processed_allergens
+    }
+
+
+    return jsonify(response), 200
 
 def construct_prompt(meal_time, allergens, health_conditions, dietary_restrictions, available_foods, general_preferences):
     prompt = f"""
@@ -198,6 +215,10 @@ def save_meals():
 
     saved_meal = {
         "username": data['username'],
+        "dietary_restrictions": data['dietary_restrictions'],
+        "allergens": data['allergens'],
+        "health_conditions": data['health_conditions'],
+        "general_preferences": data['general_preferences'],
         "meal": data['meal_plan'],
     }
     
@@ -247,6 +268,18 @@ def get_meals_for_user():
     user_meals = meals_collection.find({'username': username})
     meals = [serialize_meal(meal) for meal in user_meals]
     return jsonify(meals), 200
+
+@app.route('/users/meals/recent', methods=['GET'])
+def get_last_meal_for_user():
+    username = request.args.get('username')
+
+    user_meals_cursor = meals_collection.find({'username': username})
+    user_meals = list(user_meals_cursor)
+
+    last_meal = user_meals[-1]
+    last_meal['_id'] = str(last_meal['_id'])
+
+    return jsonify(last_meal), 200
 
 
 if __name__ == '__main__':

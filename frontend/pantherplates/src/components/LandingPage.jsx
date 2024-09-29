@@ -15,7 +15,29 @@ function LandingPage() {
     <div className="App">
       <div className="text-white">
         {/* Flex container for aligning the text and logo horizontally */}
-        <div className="bg-gradient-to-r from-[#081E3F] to-[#B6862C] px-9 py-4 flex items-center justify-between w-screen h-screen">
+        <div className="
+          px-9 
+          py-4 
+          flex 
+          items-center 
+          justify-between 
+          w-screen 
+          h-screen
+          relative
+          z-10
+          bg-[url('./assets/fiudining.jpg')]
+          bg-cover
+
+          before:content-['']
+          before:absolute
+          before:inset-0
+          before:block
+          before:bg-gradient-to-r
+          before:from-[#081E3F] 
+          before:to-[#B6862C]
+          before:opacity-75
+          before:z-[-5]
+        ">
           {/* Full-screen width and height with justified content */}
           
           {/* Left side: Text content, centered horizontally and vertically */}
