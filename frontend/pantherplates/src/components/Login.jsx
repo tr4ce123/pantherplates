@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import fiudining from '../pantherdining.png';
+
 
 const Login = ({setIsLoggedIn, setUserName}) => {
     const [username, setUsername] = useState('');
@@ -66,11 +68,15 @@ const Login = ({setIsLoggedIn, setUserName}) => {
                 </div>
 
                 {/* Right side (Welcome section) */}
-                <div className="w-1/2 bg-[#081E3F] rounded-r text-white flex flex-col justify-center items-center p-10">
-                    <h1 className="text-4xl font-bold mb-4">Welcome,</h1>
-                    <h1 className="text-4xl font-bold mb-8">Login Here</h1>
+                <div className="w-1/2 bg-[#081E3F] bg-opacity-90 rounded-r text-white flex flex-col justify-center items-center p-10">
+                    <img
+                        src={fiudining}
+                        alt="Welcome"
+                        className="rounded-lg mb-4 w-full h-40 object-cover"
+                    />
+                    <h1 className="text-4xl font-bold mb-5">Login Here</h1>
 
-                    <p className="text-lg mb-6">Don’t have an account?</p>
+                    <p className="text-lg mb-1">Don’t have an account?</p>
                     
                     <button
                         onClick={() => navigate('/signup')}
