@@ -16,7 +16,7 @@ function LandingPage() {
       <div className="text-white">
         {/* Flex container for aligning the text and logo horizontally */}
         <div className="
-          px-9 
+          px-20
           py-4 
           flex 
           items-center 
@@ -42,14 +42,14 @@ function LandingPage() {
           
           {/* Left side: Text content, centered horizontally and vertically */}
           <div className="max-w-xl grid grid-cols-1 gap-8 mx-12">
-            <h2 className="text-xl uppercase font-bold">Panther Plates</h2>
+            <h2 className="text-3xl uppercase font-bold">Panther Plates</h2>
             <h1 className="text-6xl font-bold">Discover Your Perfect Meal</h1>
             <p className="text-lg">
               Tailored for FIU students, our app generates meal suggestions based on your personal preferences and dietary needs. Enjoy delicious and thoughtful meal options that fit your lifestyle!
             </p>
             <div>
               <button
-                className="bg-gradient-to-r from-[#B6862C] py-3 px-6 text-lg rounded-md w-48"
+                className="bg-gradient-to-r from-[#B6862C] to-[#081E3F] py-3 px-6 text-lg rounded-md w-48"
                 onClick={handleLoginClick} // Added onClick handler for routing
               >
                 Log In
