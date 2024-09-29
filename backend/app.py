@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from scraper import breakfast, lunch, dinner
+from chat_service import generate_response
 import certifi
 ca_path = certifi.where()
 
@@ -15,6 +16,7 @@ client = MongoClient(MONGO_URI, tlsCAFile=ca_path)
 db = client.get_database("pantherplates")
 food_items = db.get_collection("food_items")
 users_collection = db.get_collection("users")
+meals_collection = db.get_collection("meals")
 
 app = Flask(__name__)
 CORS(app, resources={r'/*': {'origins': 'http://localhost:5173'}})
@@ -139,6 +141,69 @@ def serialize_meal(meal):
     meal['_id'] = str(meal['_id'])
     return meal
 
+
+## MEALS ROUTES
+@app.route('/meals/generate', methods=['POST'])
+def generate_meal():
+    data = request.json
+    meal_time = data.get('meal_time')
+    allergens = data.get('allergens', [])
+    health_conditions = data.get('health_conditions', [])
+    dietary_restrictions = data.get('dietary_restrictions', [])
+    general_preferences = data.get('general_preferences', [])
+
+    # Fetch available food items for the specified meal time
+    available_foods = list(food_items.find({'meal': meal_time}))
+
+    prompt = construct_prompt(meal_time, allergens, health_conditions, dietary_restrictions, available_foods, general_preferences)
+
+    meal_plan = generate_response(prompt)
+
+    return jsonify({'meal_plan': meal_plan}), 200
+
+def construct_prompt(meal_time, allergens, health_conditions, dietary_restrictions, available_foods, general_preferences):
+    prompt = f"""
+    You are a helpful assistant that creates meal plans for college students based on their dietary preferences and available ingredients.
+    These ingredients are from a dining hall on campus and they aren't cooking their meals, you are just creating a meal for them with the given foods.
+
+    Meal Time: {meal_time}
+    Allergens to avoid: {', '.join(allergens) if allergens else 'None'}
+    Health conditions: {', '.join(health_conditions) if health_conditions else 'None'}
+    Dietary restrictions: {', '.join(dietary_restrictions) if dietary_restrictions else 'None'}
+    General preferences: {', '.join(general_preferences) if general_preferences else 'None'}
+
+    Available Ingredients:
+    {available_foods}
+
+    Please generate a meal plan for {meal_time} that meets the user's specifications and uses only the available ingredients listed above. The meal plan should be detailed and include only the ingredients provided. Do not include any ingredients not listed. You can use each ingredient more than once to make the meal filling enough, but make sure you add each portion to the total.
+
+    Use the following format for the meal and only generate ONE MEAL:
+    1. Name: Name of the meal
+    2. Ingredients: List of ingredients used
+    3. Description: Explain how the meal adheres to the user's needs based on allergens, health conditions, general preferences and dietary restrictions. Say this like you're talking to the user and be informative. Do not spend a lot of time describing the dish, instead focus on the user's needs.
+    4. Nutrition: One list of all nutritional information for the meal including micronutrients and macronutrients. Do not list it for each ingredient, just the meal as a whole.
+
+    Please provide the meal plan in the following JSON format:
+    "name": "",
+    "ingredients": [],
+    "description": "",
+    "nutrition": dict
+    """
+    return prompt
+
+
+@app.route('/meals/save', methods=['POST'])
+def save_meals():
+    data = request.json
+
+    saved_meal = {
+        "username": data['username'],
+        "meal": data['meal_plan'],
+    }
+    
+    meals_collection.insert_one(saved_meal)
+    return jsonify({'message': 'Meal added successfully!'}), 200
+
 ## USER ROUTES
 @app.route('/signup', methods=['POST'])
 def register():
@@ -174,6 +239,15 @@ def login():
         return jsonify({'message': 'Invalid credentials!'}), 401
 
     return jsonify({'message': 'User logged in successfully!', 'username': user['username']}), 200
+
+@app.route('/users/meals', methods=['GET'])
+def get_meals_for_user():
+    data = request.json
+    username = data['username']
+
+    user_meals = meals_collection.find({'username': username})
+    meals = [serialize_meal(meal) for meal in user_meals]
+    return jsonify(meals), 200
 
 
 if __name__ == '__main__':
