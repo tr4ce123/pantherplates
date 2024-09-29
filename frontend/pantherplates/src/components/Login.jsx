@@ -18,7 +18,7 @@ const Login = () => {
             
             // Simulate successful login
             console.log('Login successful!');
-            navigate('/dashboard'); // Redirect to the dashboard on successful login
+            navigate('/dashboard');
         } catch (error) {
             console.error('Error logging in:', error);
         }

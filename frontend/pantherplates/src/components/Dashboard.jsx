@@ -1,59 +1,62 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Dashboard = () => {
+
+    const navigate = useNavigate();
+
+
   return (
-    <div class="flex flex-col md:flex-row h-screen">
-  <div class="bg-secondary text-secondary-foreground p-4 md:w-64">
-    <h2 class="text-lg font-bold mb-4">FIU Dining</h2>
-    <ul class="space-y-2">
-      <li><a href="#" class="block hover:text-primary">Menu</a></li>
-      <li><a href="#" class="block hover:text-primary">Order History</a></li>
-      <li><a href="#" class="block hover:text-primary">Specials</a></li>
-      <li><a href="#" class="block hover:text-primary">Settings</a></li>
-    </ul>
-  </div>
+    <div className="flex flex-col md:flex-row h-screen">
+      {/* Main Content */}
+      <div className="flex-1 bg-white p-8">
+        <h2 className="text-2xl font-bold mb-6">FIU Dining Dashboard</h2>
 
-  <div class="flex-1 bg-white p-8">
-    <h2 class="text-2xl font-bold mb-6">FIU Dining Dashboard</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-card p-4 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold mb-2">View Meals</h3>
+                <p className="text-sm text-muted-foreground">Check out what's cooking today!</p>
+                <button
+                onClick={() => navigate('/dashboard/meals')}
+                className="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">
+                View Menu
+                </button>
+            </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-card p-4 rounded-lg shadow-md">
-        <h3 class="text-lg font-semibold mb-2">Today's Menu</h3>
-        <p class="text-sm text-muted-foreground">Check out what's cooking today!</p>
-        <button class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">View Menu</button>
-      </div>
+          <div className="bg-card p-4 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-2">Create Meal</h3>
+            <p className="text-sm text-muted-foreground">Track your recent orders here.</p>
+            <button
+            onClick={() => navigate('/dashboard/create')}
+            className="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">
+              View Orders
+            </button>
+          </div>
+        </div>
 
-      <div class="bg-card p-4 rounded-lg shadow-md">
-        <h3 class="text-lg font-semibold mb-2">Recent Orders</h3>
-        <p class="text-sm text-muted-foreground">Track your recent orders here.</p>
-        <button class="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">View Orders</button>
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold mb-4">Statistics</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-card p-4 rounded-lg shadow-md">
+              <h4 className="text-sm text-muted-foreground">Total Orders</h4>
+              <p className="text-lg font-semibold mt-2">235</p>
+            </div>
+
+            <div className="bg-card p-4 rounded-lg shadow-md">
+              <h4 className="text-sm text-muted-foreground">Revenue</h4>
+              <p className="text-lg font-semibold mt-2">$4567</p>
+            </div>
+
+            <div className="bg-card p-4 rounded-lg shadow-md">
+              <h4 className="text-sm text-muted-foreground">Most Popular Item</h4>
+              <p className="text-lg font-semibold mt-2">Pizza</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  );
+};
 
-    <div class="mt-8">
-      <h3 class="text-lg font-semibold mb-4">Statistics</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-card p-4 rounded-lg shadow-md">
-          <h4 class="text-sm text-muted-foreground">Total Orders</h4>
-          <p class="text-lg font-semibold mt-2">235</p>
-        </div>
-
-        <div class="bg-card p-4 rounded-lg shadow-md">
-          <h4 class="text-sm text-muted-foreground">Revenue</h4>
-          <p class="text-lg font-semibold mt-2">$4567</p>
-        </div>
-
-        <div class="bg-card p-4 rounded-lg shadow-md">
-          <h4 class="text-sm text-muted-foreground">Most Popular Item</h4>
-          <p class="text-lg font-semibold mt-2">Pizza</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  )
-}
-
-export default Dashboard
-
+export default Dashboard;
