@@ -29,16 +29,16 @@ const Dashboard = ({userName, setIsLoggedIn}) => {
             <button
             onClick={() => navigate('/dashboard/create')}
             className="bg-primary text-primary-foreground hover:bg-primary/80 mt-4 p-2 rounded">
-              Create meal
+              Create Meal
             </button>
           </div>
         </div>
 
         <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">Statistics</h3>
+          {/* <h3 className="text-lg font-semibold mb-4">Statistics</h3> */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-card p-4 rounded-lg shadow-md">
-              <h4 className="text-sm text-muted-foreground">Total Orders</h4>
+              <h4 className="text-sm text-muted-foreground">Most Recent Meal</h4>
               <p className="text-lg font-semibold mt-2">235</p>
             </div>
 
