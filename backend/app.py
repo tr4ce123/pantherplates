@@ -14,7 +14,7 @@ food_items = db.get_collection("food_items")
 users_collection = db.get_collection("users")
 
 app = Flask(__name__)
-CORS(app, resources={r'/*': {'origins': '*'}}, methods=['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'])
+CORS(app, resources={r'/*': {'origins': 'http://localhost:5173'}})
 
 # @app.route('/foods', methods=['GET'])
 # def all():
@@ -135,6 +135,43 @@ def get_climate_friendly():
 def serialize_meal(meal):
     meal['_id'] = str(meal['_id'])
     return meal
+
+## USER ROUTES
+@app.route('/signup', methods=['POST'])
+def register():
+    data = request.json
+    username = data['username']
+    password = data['password']
+
+    if not username or not password:
+        return jsonify({'message': 'Please provide both username and password!'}), 400
+    
+    if users_collection.find_one({'username': username}):
+        return jsonify({'message': f'User with {username} already exists!'}), 401
+    
+    user = {
+        'username': username,
+        'password': password
+    }
+    users_collection.insert_one(user)
+
+    return jsonify({'message': 'User registered successfully!', "username": user["username"]}), 200
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data['username']
+    password = data['password']
+
+    if not username or not password:
+        return jsonify({'message': 'Please provide both username and password!'}), 400
+    
+    user = users_collection.find_one({'username': username, 'password': password})
+    if not user:
+        return jsonify({'message': 'Invalid credentials!'}), 401
+
+    return jsonify({'message': 'User logged in successfully!', 'username': user['username']}), 200
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

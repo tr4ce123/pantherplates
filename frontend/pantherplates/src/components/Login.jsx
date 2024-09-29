@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Login = () => {
+const Login = ({setIsLoggedIn, setUserName}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -11,10 +11,14 @@ const Login = () => {
         try {
             // Simulate login logic or implement actual login using axios
             // Example of real login (if you have an API):
-            // const response = await axios.post('/api/login', { username, password });
-            // if (response.data.success) {
-            //     navigate('/dashboard');
-            // }
+            const response = await axios.post('http://127.0.0.1:5000/login', { username, password });
+            if (response.status === 200) {
+                setIsLoggedIn(true);
+                setUserName(username);
+                navigate('/dashboard');
+            } else {
+                console.error('Error logging in');
+            }
             
             // Simulate successful login
             console.log('Login successful!');

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Signup = () => {
+const Signup = ({setIsLoggedIn, setUserName}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -10,7 +10,16 @@ const Signup = () => {
     const handleSignUp = async () => {
         try {
             // Placeholder for login logic
-            console.log('Login successful!');
+            const response = await axios.post('http://127.0.0.1:5000/signup', { username, password });
+            if (response.status === 200) {
+                setIsLoggedIn(true);
+                setUserName(username);
+                navigate('/dashboard');
+            } else {
+                console.error('Error logging in');
+            }
+            
+            console.log('Account created successfully!');
             navigate('/dashboard');
         } catch (error) {
             console.error('Error logging in:', error);
