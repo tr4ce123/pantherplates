@@ -46,8 +46,8 @@ const Dashboard = ({ userName, setIsLoggedIn }) => {
                       : [];
   
   
-                setRecentMeal(response.data);
-                console.log('Successfully fetched recent meal:', response.data);
+              setRecentMeal(response.data);
+              console.log('Successfully fetched recent meal:', response.data);
             }
         }
         catch (error) {

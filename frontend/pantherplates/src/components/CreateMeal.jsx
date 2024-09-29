@@ -41,11 +41,18 @@ const CreateMeal = ({ userName }) => {
     }
   };
 
+  const toArray = (str) => str.split(',').map(item => item.trim()).filter(item => item);
+
   const handleSave = async () => {
     try {
       await axios.post('http://127.0.0.1:5000/meals/save', { 
-        meal_plan: mealPlanData, username: userName, allergens: allergens, health_conditions: healthConditions, dietary_restrictions: dietaryChoices, general_preferences: generalPreferences
-      });
+        meal_plan: mealPlanData, 
+        username: userName, 
+        allergens: toArray(allergens), 
+        health_conditions: toArray(healthConditions), 
+        dietary_restrictions: toArray(dietaryChoices), 
+        general_preferences: toArray(generalPreferences)
+        });
       console.log('Meal plan saved successfully!');
       navigate('/dashboard/meals');
     } catch (error) {
